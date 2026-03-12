@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaTimes } from "react-icons/fa";
 
 const Checkout = ({ product, quantity, onClose }) => {
   const [formData, setFormData] = useState({
@@ -21,11 +22,37 @@ const Checkout = ({ product, quantity, onClose }) => {
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center md:items-center py-10 md:py-0">
-      <div className="bg-white w-full max-w-4xl rounded-xl p-6 md:p-8 grid md:grid-cols-2 gap-6 md:gap-10">
+    <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 px-4 py-6">
+      {/* POPUP */}
+      <div
+        className="
+          relative
+          bg-white 
+          w-full 
+          max-w-full 
+          sm:max-w-md   /* mobile width smaller */
+          md:max-w-4xl  /* desktop width normal */
+          max-h-[90vh] 
+          sm:max-h-[80vh] /* mobile height smaller */
+          overflow-y-auto 
+          rounded-xl 
+          p-5 md:p-8 
+          grid md:grid-cols-2 gap-6 md:gap-10
+        "
+      >
+        {/* CROSS BUTTON */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl z-10"
+        >
+          <FaTimes />
+        </button>
+
         {/* LEFT - FORM */}
         <div>
-          <h2 className="text-2xl font-semibold mb-4">Customer Details</h2>
+          <h2 className="text-xl md:text-2xl font-semibold mb-4">
+            Customer Details
+          </h2>
 
           <form
             onSubmit={handleSubmit}
@@ -77,14 +104,16 @@ const Checkout = ({ product, quantity, onClose }) => {
         </div>
 
         {/* RIGHT - ORDER SUMMARY */}
-        <div className="mt-8 md:mt-0">
-          <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
+        <div className="mt-6 md:mt-0">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4">
+            Order Summary
+          </h2>
 
           <div className="bg-gray-100 p-4 md:p-6 rounded-xl">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-40 md:h-48 object-cover rounded mb-3"
+              className="w-full h-36 md:h-44 object-cover rounded mb-3"
             />
 
             <h3 className="font-semibold">{product.name}</h3>
@@ -100,7 +129,7 @@ const Checkout = ({ product, quantity, onClose }) => {
             </p>
           </div>
 
-          {/* Cancel button visible only on mobile */}
+          {/* mobile cancel */}
           <button
             onClick={onClose}
             className="mt-4 text-sm text-gray-500 underline md:hidden"

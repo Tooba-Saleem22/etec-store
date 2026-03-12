@@ -82,7 +82,7 @@ const CategoriesSection = () => {
             variants={slideUp}
           >
             <img
-              src="public/edosplay exl.avif"
+              src="/edosplay exl.avif"
               alt="Displays"
               className="w-full md:w-48 h-96 object-cover rounded-lg"
             />
@@ -112,7 +112,7 @@ const CategoriesSection = () => {
               variants={slideUp}
             >
               <img
-                src="public/headphone 122.avif"
+                src="/headphone 122.avif"
                 alt="Headphones"
                 className="w-40 h-48 object-cover rounded-lg mb-3"
               />
@@ -131,7 +131,7 @@ const CategoriesSection = () => {
               variants={slideUp}
             >
               <img
-                src="public/iphone 15black.avif"
+                src="/iphone 15black.avif"
                 alt="Phones"
                 className="w-40 h-48 object-cover rounded-lg mb-3"
               />

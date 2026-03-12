@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const Newsletter = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
   const staggerContainer = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.3 } },
@@ -13,6 +16,32 @@ const Newsletter = () => {
       y: 0,
       transition: { duration: 0.8, ease: "easeOut" },
     },
+  };
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      setMessage("Please enter a valid email");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setMessage(data.message);
+        setEmail(""); // input clear ho jaye
+      } else {
+        setMessage(data.message || "Subscription failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage("Server error, try again later");
+    }
   };
 
   return (
@@ -43,11 +72,17 @@ const Newsletter = () => {
             type="email"
             placeholder="Your email address"
             className="px-5 py-3 w-full border border-black bg-transparent rounded-3xl outline-none"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <button className="px-6 py-3 bg-black text-white rounded-3xl hover:opacity-90 transition">
+          <button
+            onClick={handleSubscribe}
+            className="px-6 py-3 bg-black text-white rounded-3xl hover:opacity-90 transition"
+          >
             Subscribe
           </button>
         </motion.div>
+        {message && <p className="mt-4 text-gray-700">{message}</p>}
       </div>
     </motion.section>
   );

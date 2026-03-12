@@ -157,12 +157,38 @@ const ProductDetails = ({ product }) => {
 
       {/* CHECKOUT POPUP */}
       {showCheckout && (
-        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 px-6">
-          <div className="bg-white rounded-xl p-8 w-full max-w-4xl grid md:grid-cols-2 gap-10">
+        <div
+          className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 px-4 py-6"
+          onClick={() => setShowCheckout(false)}
+        >
+          <div
+            className="
+              relative
+              bg-white
+              w-full
+              max-w-full
+              sm:max-w-md
+              md:max-w-4xl
+              max-h-[80vh]
+              md:max-h-[90vh]
+              overflow-y-auto sm:overflow-y-visible
+              rounded-xl
+              p-5 md:p-8
+              grid md:grid-cols-2 gap-6 md:gap-10
+            "
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* CROSS BUTTON */}
+            <button
+              onClick={() => setShowCheckout(false)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl z-10"
+            >
+              ✕
+            </button>
+
             {/* FORM */}
             <div>
               <h2 className="text-2xl font-semibold mb-6">Customer Details</h2>
-
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <input
                   type="text"
@@ -172,7 +198,6 @@ const ProductDetails = ({ product }) => {
                   onChange={handleChange}
                   className="border p-3 rounded-lg"
                 />
-
                 <input
                   type="email"
                   name="email"
@@ -181,7 +206,6 @@ const ProductDetails = ({ product }) => {
                   onChange={handleChange}
                   className="border p-3 rounded-lg"
                 />
-
                 <input
                   type="text"
                   name="address"
@@ -190,7 +214,6 @@ const ProductDetails = ({ product }) => {
                   onChange={handleChange}
                   className="border p-3 rounded-lg"
                 />
-
                 <input
                   type="text"
                   name="city"
@@ -199,7 +222,6 @@ const ProductDetails = ({ product }) => {
                   onChange={handleChange}
                   className="border p-3 rounded-lg"
                 />
-
                 <button className="bg-black text-white py-3 rounded-3xl mt-4">
                   Place Order
                 </button>
@@ -209,30 +231,25 @@ const ProductDetails = ({ product }) => {
             {/* ORDER SUMMARY */}
             <div>
               <h2 className="text-2xl font-semibold mb-6">Order Summary</h2>
-
               <div className="bg-gray-100 p-6 rounded-xl">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-40 object-cover rounded mb-4"
+                  className="w-full h-40 md:h-48 object-cover rounded mb-4"
                 />
-
                 <h3 className="font-semibold">{product.name}</h3>
-
                 <p className="text-gray-600">Price: ${product.price}</p>
-
                 <p className="text-gray-600">Quantity: {quantity}</p>
-
                 <hr className="my-4" />
-
                 <p className="text-xl font-bold">
                   Total: ${totalPrice.toFixed(2)}
                 </p>
               </div>
 
+              {/* MOBILE CANCEL BUTTON */}
               <button
                 onClick={() => setShowCheckout(false)}
-                className="mt-4 text-sm text-gray-500 underline"
+                className="mt-4 text-sm text-gray-500 underline md:hidden"
               >
                 Cancel
               </button>
