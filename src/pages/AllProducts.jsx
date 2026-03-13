@@ -15,27 +15,27 @@ const AllProducts = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [products, setProducts] = useState(productsData); // frontend products by default
+  // Frontend products as default
+  const [products, setProducts] = useState(productsData);
   const [selectedCategory, setSelectedCategory] = useState("All Products");
 
-  // FETCH PRODUCTS FROM BACKEND (optional, for future dynamic data)
+  // Optional backend fetch for future dynamic use
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await fetch("http://localhost:5000/api/products");
         if (res.ok) {
           const data = await res.json();
-          if (data.length > 0) setProducts(data); // replace only if API has products
+          if (data.length > 0) setProducts(data); // replace only if API has data
         }
       } catch (error) {
         console.log("Backend fetch failed, using frontend products", error);
       }
     };
-
     fetchProducts();
   }, []);
 
-  // CATEGORY FROM OTHER PAGES
+  // Handle category from navigation (like FeaturedProducts or CategoriesSection)
   useEffect(() => {
     if (location.state?.category) {
       setSelectedCategory(
@@ -46,7 +46,7 @@ const AllProducts = () => {
     }
   }, [location.state]);
 
-  // FILTER PRODUCTS
+  // Filter products based on selected category
   const filteredProducts =
     selectedCategory === "All Products"
       ? products
@@ -59,12 +59,13 @@ const AllProducts = () => {
   return (
     <div className="bg-white text-black pt-32 font-sans min-h-screen">
       <div className="container mx-auto px-6 md:px-12 py-12">
+        {/* Page title */}
         <h1 className="text-3xl md:text-6xl font-light mb-2">Shop</h1>
         <p className="text-gray-700 text-xl font-light mb-8">
           Check out our full collection of products tailored to your needs
         </p>
 
-        {/* CATEGORY BUTTONS */}
+        {/* Category buttons */}
         <div className="flex gap-4 flex-wrap mb-10">
           {categories.map((cat) => (
             <button
@@ -81,7 +82,7 @@ const AllProducts = () => {
           ))}
         </div>
 
-        {/* PRODUCTS GRID */}
+        {/* Products grid */}
         {filteredProducts.length === 0 ? (
           <p className="text-gray-500 text-lg">No products found.</p>
         ) : (
