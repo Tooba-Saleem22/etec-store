@@ -1,38 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 import Checkout from "../components/Checkout";
-import productsData from "../data/products"; // aapke static products
+import { FaShieldAlt, FaTruck, FaHeadset } from "react-icons/fa";
 
-const ProductDetails = () => {
-  const { id } = useParams(); // URL se id
-  const [product, setProduct] = useState(null);
+const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [showCheckout, setShowCheckout] = useState(false);
-
-  useEffect(() => {
-    // Try to fetch from backend first (optional)
-    const fetchProduct = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/products/${id}`);
-        if (res.ok) {
-          const data = await res.json();
-          setProduct(data);
-        } else {
-          // agar backend fail ho jaye, fallback to static
-          const staticProduct = productsData.find((p) => p.id === parseInt(id));
-          setProduct(staticProduct || null);
-        }
-      } catch (err) {
-        // backend error: fallback to static
-        const staticProduct = productsData.find((p) => p.id === parseInt(id));
-        setProduct(staticProduct || null);
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
-
-  if (!product) return <p className="pt-32 text-center">Loading product...</p>;
 
   return (
     <>
@@ -44,9 +16,11 @@ const ProductDetails = () => {
             className="w-[450px] rounded-xl shadow-lg"
           />
 
-          <div>
+          <div className="flex-1">
             <h1 className="text-4xl font-semibold mb-4">{product.name}</h1>
+
             <p className="text-gray-600 mb-4">{product.description}</p>
+
             <p className="text-3xl font-bold mb-6">${product.price}</p>
 
             <div className="flex items-center gap-4 mb-6">
@@ -65,12 +39,38 @@ const ProductDetails = () => {
               </button>
             </div>
 
+            {/* Buy Now Button */}
             <button
               onClick={() => setShowCheckout(true)}
-              className="w-full py-4 bg-black text-white rounded-3xl"
+              className="w-full py-4 bg-black text-white rounded-3xl mb-4 transform transition-transform duration-200 hover:scale-105"
             >
               Buy Now
             </button>
+
+            {/* Delivery & Return Info */}
+            <div className="text-center text-gray-500 text-sm leading-relaxed">
+              <p>Estimate delivery times: 3-6 days (International)</p>
+              <p>
+                Return within 45 days of purchase. Duties & taxes are
+                non-refundable.
+              </p>
+            </div>
+
+            {/* Info section below Buy Now */}
+            <div className="flex justify-between text-center md:mt-10 pt-4">
+              <div className="flex-1 flex flex-col items-center">
+                <FaShieldAlt className="text-2xl mb-1" />
+                <span className="text-sm font-medium">Warranty</span>
+              </div>
+              <div className="flex-1 flex flex-col items-center">
+                <FaTruck className="text-2xl mb-1" />
+                <span className="text-sm font-medium">Shipping & Delivery</span>
+              </div>
+              <div className="flex-1 flex flex-col items-center">
+                <FaHeadset className="text-2xl mb-1" />
+                <span className="text-sm font-medium">Support</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
