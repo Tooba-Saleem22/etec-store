@@ -9,15 +9,36 @@ const Contact = () => {
     message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Message sent!");
-    setFormData({ name: "", email: "", message: "" });
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        alert("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        alert("Something went wrong");
+      }
+    } catch (error) {
+      alert("Server error, try again later");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -40,7 +61,7 @@ const Contact = () => {
         </p>
       </div>
 
-      {/* Gray Box Section with Columns */}
+      {/* Gray Box Section */}
       <div className="bg-[#f8f6f7] rounded-xl mx-6 md:mx-12 py-12 px-6 md:px-12 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Left Column */}
@@ -60,7 +81,7 @@ const Contact = () => {
             </p>
           </div>
 
-          {/* Right Column: Contact Form */}
+          {/* Contact Form */}
           <div className="flex flex-col gap-4">
             <h2 className="text-3xl md:text-4xl font-semibold mb-2">
               Drop us a message
@@ -80,6 +101,7 @@ const Contact = () => {
                 required
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none"
               />
+
               <input
                 type="email"
                 name="email"
@@ -89,6 +111,7 @@ const Contact = () => {
                 required
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none"
               />
+
               <textarea
                 name="message"
                 placeholder="Message"
@@ -98,11 +121,13 @@ const Contact = () => {
                 rows={5}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none"
               />
+
               <button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-transparent border hover:bg-black hover:text-white border-black rounded-3xl px-6 py-3 hover:scale-105 transition-transform mt-2"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>

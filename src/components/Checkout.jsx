@@ -9,38 +9,73 @@ const Checkout = ({ product, quantity, onClose }) => {
     city: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const totalPrice = product.price * quantity;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Order Placed Successfully!");
-    onClose();
+    setLoading(true);
+
+    const orderData = {
+      productName: product.name,
+      price: product.price,
+      quantity: quantity,
+      total: totalPrice,
+      ...formData,
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (res.ok) {
+        alert("Order Placed Successfully!");
+        onClose();
+        setFormData({
+          name: "",
+          email: "",
+          address: "",
+          city: "",
+        });
+      } else {
+        alert("Something went wrong");
+      }
+    } catch (error) {
+      alert("Server error, try again later");
+    }
+
+    setLoading(false);
   };
 
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 px-4 py-6">
-      {/* POPUP */}
       <div
         className="
           relative
           bg-white 
           w-full 
           max-w-full 
-          sm:max-w-md   /* mobile width smaller */
-          md:max-w-4xl  /* desktop width normal */
+          sm:max-w-md
+          md:max-w-4xl
           max-h-[90vh] 
-          sm:max-h-[80vh] /* mobile height smaller */
+          sm:max-h-[80vh]
           overflow-y-auto 
           rounded-xl 
           p-5 md:p-8 
           grid md:grid-cols-2 gap-6 md:gap-10
         "
       >
-        {/* CROSS BUTTON */}
+        {/* CLOSE BUTTON */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl z-10"
@@ -63,6 +98,7 @@ const Checkout = ({ product, quantity, onClose }) => {
               name="name"
               placeholder="Full Name"
               required
+              value={formData.name}
               onChange={handleChange}
               className="border p-3 rounded-lg w-full"
             />
@@ -72,6 +108,7 @@ const Checkout = ({ product, quantity, onClose }) => {
               name="email"
               placeholder="Email"
               required
+              value={formData.email}
               onChange={handleChange}
               className="border p-3 rounded-lg w-full"
             />
@@ -81,6 +118,7 @@ const Checkout = ({ product, quantity, onClose }) => {
               name="address"
               placeholder="Address"
               required
+              value={formData.address}
               onChange={handleChange}
               className="border p-3 rounded-lg w-full"
             />
@@ -90,15 +128,17 @@ const Checkout = ({ product, quantity, onClose }) => {
               name="city"
               placeholder="City"
               required
+              value={formData.city}
               onChange={handleChange}
               className="border p-3 rounded-lg w-full"
             />
 
             <button
               type="submit"
+              disabled={loading}
               className="bg-black text-white py-3 rounded-3xl mt-4 w-full"
             >
-              Place Order
+              {loading ? "Placing Order..." : "Place Order"}
             </button>
           </form>
         </div>
@@ -129,7 +169,6 @@ const Checkout = ({ product, quantity, onClose }) => {
             </p>
           </div>
 
-          {/* mobile cancel */}
           <button
             onClick={onClose}
             className="mt-4 text-sm text-gray-500 underline md:hidden"

@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import products from "../data/products";
-import ProductDetails from "./ProductDetails";
+import ProductDetails from "../pages/ProductDetails";
 
 const ProductPage = () => {
-  const { id } = useParams(); // URL se id mil rahi hai
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
 
-  const product = products.find(
-    (p) => p.id === Number(id), // id match karwa rahe hain
-  );
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/products/${id}`)
+      .then((res) => res.json())
+      .then((data) => setProduct(data));
+  }, [id]);
 
   if (!product) {
-    return <div className="text-center py-20">Product not found</div>;
+    return <div className="text-center py-20">Loading...</div>;
   }
 
   return <ProductDetails product={product} />;

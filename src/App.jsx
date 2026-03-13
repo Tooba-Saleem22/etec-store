@@ -13,6 +13,8 @@ import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+import Dashboard from "./dashboard/Dashboard";
+
 const App = () => {
   return (
     <Router>
@@ -26,6 +28,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
       </Routes>
 
       <Footer />
