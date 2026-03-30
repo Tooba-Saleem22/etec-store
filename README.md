@@ -1,18 +1,52 @@
-# React + Vite
+# ETEC Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## About
 
-Currently, two official plugins are available:
+ETEC Store is a simple ecommerce website built with React and Tailwind CSS.
+It showcases products, a responsive layout, and basic interactivity, demonstrating a full frontend project using modern web technologies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+* Responsive layout for mobile and desktop
+* Product listing and detail view
+* Clean and modern UI design
+* Built with React and Tailwind CSS
+* Deployed live with Vercel
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Technologies
 
-Note: This will impact Vite dev & build performances.
+* React JS
+* Tailwind CSS
+* Vite
 
-## Expanding the ESLint configuration
+## Live Site
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+[View ETEC Store](https://etec-store.vercel.app/)
+
+## How to Run
+
+1. Clone the repository
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+4. Open the link shown in terminal to view the project locally
+
+## What I Learned
+
+* Building a React project structure
+* Styling components with Tailwind CSS
+* Responsive design using Flexbox and Grid
+* Deploying a React app to Vercel
+
+## Author
+
+Tooba Saleem
+Frontend Developer | React JS | MERN Stack Developer
+
