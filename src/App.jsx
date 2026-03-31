@@ -18,21 +18,71 @@ const App = () => {
   return (
     <Router>
       <ScrollToTop />
+      {/* Navbar fixed at top */}
       <Navbar />
 
-      {/* Content starts below navbar */}
-      <div className="pt-20 md:pt-2">
+      {/* Content wrapper */}
+      <div>
         <Routes>
           {/* Public site pages */}
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<AllProducts />} />
-          <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/contact" element={<Contact />} />
-
-          {/* Admin dashboard routes */}
-          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={
+              <div className="pt-20 md:pt-2">
+                <Home />
+              </div>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <div className="pt-20 md:pt-2">
+                <AllProducts />
+              </div>
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={
+              <div className="pt-20 md:pt-2">
+                <ProductPage />
+              </div>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <div className="pt-20 md:pt-2">
+                <About />
+              </div>
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <div className="pt-20 md:pt-2">
+                <FAQ />
+              </div>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <div className="pt-20 md:pt-2">
+                <Contact />
+              </div>
+            }
+          />
+          {/* Admin dashboard route */}
+          <Route
+            path="/dashboard/*"
+            element={
+              // Adjust top padding according to navbar height
+              <div className="pt-[99px]">
+                <Dashboard />
+              </div>
+            }
+          />
         </Routes>
       </div>
 
