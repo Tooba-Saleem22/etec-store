@@ -73,7 +73,9 @@ const App = () => {
               </div>
             }
           />
-          {/* Admin dashboard route */}
+
+          {/* Admin dashboard route (temporarily commented) */}
+          {/*
           <Route
             path="/dashboard/*"
             element={
@@ -83,6 +85,7 @@ const App = () => {
               </div>
             }
           />
+          */}
         </Routes>
       </div>
 
