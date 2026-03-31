@@ -12,7 +12,7 @@ import About from "./pages/About";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 
-// import DashboardLayout from "./dashboard/DashboardLayout";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
@@ -31,8 +31,8 @@ const App = () => {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
 
-          {/* Admin dashboard routes
-          <Route path="/dashboard/*" element={<DashboardLayout />} /> */}
+          {/* Admin dashboard routes */}
+          <Route path="/dashboard/*" element={<Dashboard />} />
         </Routes>
       </div>
 
